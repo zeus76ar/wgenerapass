@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		    <meta name="viewport" content="width=device-width, initial-scale=1" />
+			
+			<meta name="description" content="Aplicacion web para generar passwords.">
+        	<meta name="author" content="AB software">
+        	<meta name="keywords" content="generador, password, php, bootstrap">
+
+			<base href="<?php echo $config['url_base'] ?>" />
+			
+			<title><?php echo $config['sistema'] ?></title>
+			
+            <!-- CSS -->
+
+        	<!-- Latest compiled and minified CSS -->
+        	<link rel="stylesheet" 
+        	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        	crossorigin="anonymous">
+        	<!-- Optional theme -->
+        	<link rel="stylesheet" 
+       		href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+        	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+        	crossorigin="anonymous">
+			
+			<!-- plugins -->
+			<link rel="stylesheet" type="text/css" 
+            href="vendor/jquery/plugins/alertify.js/alertify.core.min.css" />
+			<link rel="stylesheet" type="text/css" 
+            href="vendor/jquery/plugins/alertify.js/alertify.bootstrap.min.css" />
+			<link rel="stylesheet" type="text/css" 
+            href="vendor/jquery/plugins/nprogress/nprogress.min.css" />
+			<!-- -->
+			<link rel="stylesheet" type="text/css" 
+            href="assets/css/estilos.min.css" />
+            
+			<!-- JS -->
+			
+			<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+            <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
+
+        	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        	<!-- Latest compiled and minified JavaScript -->
+        	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+        	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+        	crossorigin="anonymous"></script>
+			
+			<!-- plugins -->
+			<script type="text/javascript" src="vendor/jquery/plugins/alertify.js/alertify.min.js"></script>
+			<script type="text/javascript" src="vendor/jquery/plugins/nprogress/nprogress.min.js"></script>
+			<!-- -->
+			<script type="text/javascript" src="assets/js/lib/funciones.lib.min.js"></script>
+			<script type="text/javascript" src="assets/js/inicio.min.js"></script>
+		</head>
+		
+		<body>
+			<!-- Fixed navbar -->
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+    			<div class="container">
+        			<div class="navbar-header">
+            			<button type="button" class="navbar-toggle collapsed"
+            			data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+            			aria-controls="navbar">
+                			<span class="sr-only">Toggle navigation</span>
+                			<span class="icon-bar"></span>
+                			<span class="icon-bar"></span>
+                			<span class="icon-bar"></span>
+           				</button>
+            			
+						<a class="navbar-brand" href="#" data-toggle="modal"
+            			data-target="#acercade"><?php echo $config['sistema'] ?></a>
+        			</div>
+    			</div>
+			</nav>
+			
+			<div class="container">
+				<div class="row">
+    				<div class="col-md-4 col-sm-4 borde_inf">
+        				<form id="frmnumeros" role="form" 
+						action="app/controllers/main.php?generar=1" method="post">
+            				<div id="borde_opciones">
+                				<div class="borde_campo">
+                    				<label for="minimo">Longitud</label>
+                    				<input type="number" id="longitud" 
+									name="longitud" class="form-control"
+                    				placeholder="Longitud..." min="4" max="30" 
+									required="1" autofocus="1" value="4" />
+               	 				</div>
+
+                				<div class="borde_campo">
+                    				<input type="checkbox" id="numeros" name="numeros"
+                    				class="" />
+									<label for="numeros"> Incluir numeros (0...9)</label>
+                    				<br />
+
+                    				<input type="checkbox" id="letras" name="letras"
+                    				class="" />
+									<label for="letras"> Incluir letras (a...z)</label>
+                    				
+									<br />
+                    				<input type="checkbox" id="simbolos" name="simbolos"
+                    				class="" />
+                    				<label for="simbolos"> Incluir simbolos (# * + -)</label>
+                				</div>
+            				</div>
+
+            				<div id="resumen" class="borde_campo"></div>
+
+            				<div>
+                				<button type="submit" id="generar" class="btn btn-primary">Generar</button>
+                				<button type="button" id="reset" class="btn btn-default hidden">Reset</button>
+								
+								<input type="hidden" id="hgenerados" name="hgenerados" />
+							</div>
+
+							<br>
+							<strong>Nota: se pueden generar hasta 20 passwords por sesion.</strong>
+						</form>
+					</div>
+					
+					<div class="col-md-4 col-sm-4 borde_inf">
+        				<div class="negrita">Password</div>
+        				<div id="ultimo_generado">&nbsp;</div>
+    				</div>
+
+    				<div class="col-md-4 col-sm-4 borde_inf">
+        				<div class="panel panel-default">
+            				<div class="panel-heading">Passwords Generados.</div>
+            				
+							<div id="lista_generados" class="panel-body"></div>
+            				
+							<div class="panel-footer">
+								<form action="app/controllers/main.php?descargar=1" 
+								method="post" target="_blank" id="frmgenerados">
+									<input type="hidden" id="numeros_gen" 
+									name="numeros_gen">
+
+									<button id="descargar" class="btn btn-default hidden">
+										<span class="glyphicon glyphicon-download"></span>
+										Descargar
+									</button>
+								</form>
+            				</div>
+        				</div>
+    				</div>
+				</div>
+
+				<div class="modal fade" id="acercade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close"
+								data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title"><span class="negrita">Acerca de...</span></h4>
+							</div>
+							
+							<div class="modal-body">
+								<div class="container-fluid">
+									<h3><?php echo $config["sistema"] ?></h3>
+
+									<p>
+										<strong>Aplicacion web para generar password.</strong>
+									</p>
+
+									<p>
+										<strong>Versi&oacute;n:</strong>&nbsp;20.04
+                                    	<br />
+										<strong>Subversi&oacute;n:</strong>&nbsp;09
+                                    	<br />
+										<strong>An&aacute;lisis y desarrollo:</strong>&nbsp;
+                                    	Ariel Balmaceda. Analista Programador.
+                                    	<br />
+										<strong>Contacto:</strong>&nbsp;absoft.dev@gmail.com
+                                    	<br />
+										<strong>Ficha T&eacute;cnica</strong>
+										<br>
+										Front-end: Bootstrap, HTML5, JQuery.
+                                    	<br>Back-end: PHP 5.
+									<p>
+
+									<p>
+                                    	<strong>&copy;2018</strong>
+									</p>
+								</div>
+							</div>
+							
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cerrar</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+			</div>
+		</body>
+	</html>
