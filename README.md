@@ -25,7 +25,7 @@ Luego copias los archivos dentro del directorio raiz de tu servidor.
 
 ## Autores ✒️
 
-**Ariel Balmaceda** - *Idea y desarrollo* - [zeus76ar](https://github.com/zeus76ar) - absoft.dev@gmail.com
+**AB software** - *Idea y desarrollo* - [zeus76ar](https://github.com/zeus76ar) - absoft.dev@gmail.com
 
 
 ## Licencia 📄
