@@ -1,7 +1,7 @@
-# wGeneraPass.
-
+# wGeneraPass
 Aplicacion web en PHP para generar contraseñas.
 
+![Demo](screenshot.jpg "Demo")
 
 ## Comenzando 🚀
 
